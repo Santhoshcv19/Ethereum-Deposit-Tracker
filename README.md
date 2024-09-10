@@ -1,54 +1,114 @@
-# ETH Deposit Tracker
+# Ethereum Deposit Monitoring Application
 
-The ETH Deposit Tracker is a TypeScript-based application that monitors Ethereum deposits on the blockchain. It tracks deposit transactions, stores them in a MongoDB database, and sends notifications via Telegram when new deposits are detected.
+## Introduction
 
-## Prerequisites
+The Ethereum Deposit Monitoring Application is a TypeScript-based solution that monitors ETH deposits on the Beacon Chain Deposit Contract in real-time. The application interfaces with Ethereum nodes via RPC, logs deposit transactions, sends alerts via Telegram, and visualizes data through a Grafana dashboard.
 
-Before you start, ensure you have the following installed:
+## Key Features
 
-- **Node.js**: Version 14 or later.
-- **npm**: Version 6 or later (comes with Node.js).
-- **MongoDB**: Ensure MongoDB is installed and running on the default port `27017`.
+- **Live Deposit Tracking**: Continuously monitors the Beacon Chain Deposit Contract for new deposits.
+- **Comprehensive Logging**: Captures essential details of deposits such as sender, amount, and transaction time.
+- **Notifications**: Real-time alerts via Telegram for every new deposit.
+- **Visual Data Insights**: Integrates with Grafana to display deposit metrics and trends.
+- **Resilient Error Handling**: Ensures logging and error management for robust operations.
+- **Containerization**: Supports Docker deployment (under development, may need further improvements).
 
-### MongoDB Installation
+## Contents
 
-If you don't have MongoDB installed, you can install it using the following steps:
+- [Introduction](#introduction)
+- [Key Features](#key-features)
+- [Contents](#contents)
+- [Installation Instructions](#installation-instructions)
+- [Configuration Setup](#configuration-setup)
+- [How to Run](#how-to-run)
+- [Application Usage](#application-usage)
+- [Data Structure](#data-structure)
+- [Project Scope and Deliverables](#project-scope-and-deliverables)
+- [Contributions and Support](#contributions-and-support)
 
-- **macOS** (using Homebrew):
+## Installation Instructions
 
-  ```bash
-  brew tap mongodb/brew
-  brew install mongodb-community@6.0
-  brew services start mongodb/brew/mongodb-community
-  ```
+Follow these steps to set up the Ethereum Deposit Monitoring Application:
 
-  ## Available Scripts
+1. **Clone the Repository**
+   ```bash
+   git clone [repository-url]
+   cd [project-directory]
+   ```
 
-In the project directory, you can run:
+2. **Install Node.js and TypeScript**
+   - Make sure Node.js is installed, and install TypeScript globally:
+     ```bash
+     npm install -g typescript
+     ```
 
-### `npm run build`
+3. **Install Project Dependencies**
+   ```bash
+   npm install
+   ```
 
-Compiles the TypeScript code to JavaScript.
+## Configuration Setup
 
-### `npm run dev`
+1. **Configure Environment Variables**
+   - Create a `.env` file in the project’s root directory with the necessary values:
+     ```bash
+     ALCHEMY_API_KEY=YOUR_ALCHEMY_API_KEY
+     MONGO_URI=YOUR_MONGO_URI
+     ETH_BLOCK_FROM=20714004
+     TELEGRAM_NOTIFICATIONS_BOT_TOKEN=YOUR_TELEGRAM_BOT_TOKEN
+     TELEGRAM_NOTIFICATIONS_CHAT_ID=YOUR_TELEGRAM_CHAT_ID
+     ```
 
-## Architecture
+## How to Run
 
-This project was developed using Clean Architecture principles along with SOLID design principles. The Clean Architecture approach ensures separation of concerns and independence of frameworks, making the system more maintainable, scalable, and testable. The application is structured into layers:
+1. **Launch the Application**
+   ```bash
+   npm start
+   ```
 
-1. Entities: Core business logic and domain models.
-2. Use Cases: Application-specific business rules.
-3. Interface Adapters: Presenters, controllers, and gateways.
-4. Frameworks and Drivers: External frameworks and tools (database, web framework, etc.).
+2. **Run Monitoring and Alerts**
+   - Start Prometheus and Grafana services:
+     ```bash
+     npm run dev-api
+     npm run dev
+     ```
 
-SOLID principles were applied throughout the development:
+3. **Access Grafana Dashboard**
+   - View real-time deposit data on Grafana by navigating to `http://localhost:3000`.
 
-- Single Responsibility Principle: Each class and module has a single, well-defined responsibility.
-- Open-Closed Principle: The system is open for extension but closed for modification.
-- Liskov Substitution Principle: Objects of a superclass are replaceable with objects of its subclasses without affecting the correctness of the program.
-- Interface Segregation Principle: Clients are not forced to depend on interfaces they do not use.
-- Dependency Inversion Principle: High-level modules do not depend on low-level modules. Both depend on abstractions.
+## Application Usage
 
-## Flexibility
+1. **Deposit Monitoring**
+   - The application automatically tracks deposits from the Beacon Chain Deposit Contract, logging transaction data and displaying metrics in Grafana.
 
-The ETH Deposit Tracker was designed with flexibility in mind. It can be easily configured to listen for any token from any blockchain by simply configuring a context for each one. This modular approach allows for easy expansion to support multiple cryptocurrencies and blockchains without significant changes to the core architecture.
+2. **Deposit Alerts**
+   - Receive notifications about new deposits in your configured Telegram chat.
+
+## Data Structure
+
+The deposit data model is structured as follows:
+
+```typescript
+interface Deposit {
+    blockNumber: number;
+    timestamp: number;
+    fee?: number;
+    transactionHash?: string;
+    publicKey: string;
+}
+```
+
+## Project Scope and Deliverables
+
+- A fully functional TypeScript-based application for monitoring ETH deposits.
+- Complete source code repository with detailed setup instructions.
+- Integrated error logging and notification handling.
+- Grafana dashboard for real-time data visualization.
+- Telegram notifications for deposit alerts.
+
+## Contributions and Support
+
+If you encounter issues or wish to contribute:
+
+- **Report Issues**: Use the [GitHub Issues page](#) to report bugs or request features.
+- **Contribute**: Feel free to submit pull requests or suggest improvements on [GitHub](#).
