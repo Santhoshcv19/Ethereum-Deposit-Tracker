@@ -2,7 +2,7 @@
 FROM node:14
 
 # Set the working directory
-WORKDIR /app
+# WORKDIR /app
 
 # Copy the package.json and package-lock.json and install dependencies
 COPY package.json package-lock.json ./
@@ -18,4 +18,4 @@ RUN npm run build
 EXPOSE 4000
 
 # Start the service using the compiled JavaScript file
-CMD ["node", "dist/index.js"]
+CMD ["node", "dist/apps/prometheusMetricsRestApi/index.js"]

@@ -2,7 +2,7 @@
 FROM prom/prometheus:latest
 
 # Add your custom Prometheus configuration file
-COPY prometheus.yml /etc/prometheus/
+COPY grafana/prometheus.yml /etc/prometheus/
 
 # Expose Prometheus' default port
 EXPOSE 9090

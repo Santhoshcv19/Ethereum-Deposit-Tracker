@@ -5,13 +5,13 @@ FROM grafana/grafana:latest
 EXPOSE 3000
 
 # Copy provisioning files
-COPY provisioning /etc/grafana/provisioning
+COPY grafana/provisioning /etc/grafana/provisioning
 
 # Copy dashboards
-COPY provisioning/dashboards /var/lib/grafana/dashboards
+COPY grafana/provisioning/dashboards grafana/provisioning
 
 # Copy the setup script
-COPY setup-telegram.sh /usr/local/bin/setup-telegram.sh
+COPY grafana/notifications/setup-telegram.sh /usr/local/bin/setup-telegram.sh
 
 # Make sure to run the setup script after Grafana starts
 CMD ["/run.sh", "&&", "/usr/local/bin/setup-telegram.sh"]
